@@ -34,8 +34,11 @@ WebSockets library (install using pip install websockets)
 Installation
 ------------
 Steps to Install
+
 Clone the repository using git clone [https://github.com/your-username/gemini-voice-assistant.git](https://github.com/fahdmirza/gemini_voice_assistant.git)
+
 Install the required libraries using pip install -r requirements.txt
+
 Set up your Gemini API key as an environment variable using export GEMINI_API_KEY=your-api-key-here
 
 Usage
