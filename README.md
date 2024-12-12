@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/d8636a35-9e4b-4725-b979-ee870e85c94e)
+
 Gemini Voice Assistant
 =========================
 A simple voice assistant built using the Gemini API and Python.
