@@ -35,7 +35,7 @@ Installation
 ------------
 Steps to Install
 
-Clone the repository using:  git clone [https://github.com/your-username/gemini-voice-assistant.git](https://github.com/fahdmirza/gemini_voice_assistant.git)
+Clone the repository using:  git clone https://github.com/fahdmirza/gemini_voice_assistant.git
 
 Install the required libraries using:  pip install -r requirements.txt
 
