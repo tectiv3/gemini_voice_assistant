@@ -26,9 +26,14 @@ Requirements
 ------------
 
 Dependencies
+
 Python 3.11 or later
+
 Gemini API key (obtainable from the Google Cloud Console) https://aistudio.google.com/
+
+
 PyAudio library (install using pip install pyaudio)
+
 WebSockets library (install using pip install websockets)
 
 Installation
