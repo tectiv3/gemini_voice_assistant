@@ -1,3 +1,10 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pyaudio",
+#     "websockets",
+# ]
+# ///
 import asyncio
 import base64
 import json
@@ -5,6 +12,8 @@ import os
 import pyaudio
 from websockets.asyncio.client import connect
 
+inputAudio = None
+isPlaying = False
 
 class GeminiVoiceAssistant:
     def __init__(self):
@@ -40,7 +49,11 @@ class GeminiVoiceAssistant:
         )
 
         while True:
+            global isPlaying
             data = await asyncio.to_thread(stream.read, self._CHUNK)
+            if isPlaying:
+                continue
+
             await self._ws.send(
                 json.dumps(
                     {
@@ -71,19 +84,29 @@ class GeminiVoiceAssistant:
             except KeyError:
                 pass
             else:
+                global isPlaying
                 if turn_complete:
+                    isPlaying = False
                     # If you interrupt the model, it sends an end_of_turn. For interruptions to work, we need to empty out the audio queue
-                    print("\nEnd of turn")
+                    print("\nEnd of turn, back to listening")
                     while not self._audio_queue.empty():
                         self._audio_queue.get_nowait()
 
     async def _play_response(self):
+        # global inputAudio
+        # # mute mic while playing response and few milliseconds after
+        # device_index = inputAudio.get_default_input_device_info()['index']
+        # # Mute the mic by setting the input volume to 0
+        # inputAudio.set_input_device_volume(device_index, 0.0)
         audio = pyaudio.PyAudio()
         stream = audio.open(
             format=self._FORMAT, channels=self._CHANNELS, rate=24000, output=True
         )
         while True:
+            global isPlaying
             data = await self._audio_queue.get()
+            isPlaying = True
+            print("Playing response")
             await asyncio.to_thread(stream.write, data)
 
     async def start(self):
